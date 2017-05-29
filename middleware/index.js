@@ -4,6 +4,7 @@ var Comment = require("../models/comment");
 // all the middleare goes here
 var middlewareObj = {};
 
+// Check if the user is the owner of the campground they are trying to edit, if not redirect
 middlewareObj.checkCampgroundOwnership = function(req, res, next) {
  if(req.isAuthenticated()){
         Campground.findById(req.params.id, function(err, foundCampground){
@@ -26,6 +27,7 @@ middlewareObj.checkCampgroundOwnership = function(req, res, next) {
     }
 };
 
+// Check if the user is the owner of the comment they are trying to edit, if not redirect
 middlewareObj.checkCommentOwnership = function(req, res, next) {
  if(req.isAuthenticated()){
         Comment.findById(req.params.comment_id, function(err, foundComment){
@@ -47,6 +49,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
     }
 };
 
+// Check to see if the user is logged in. If not, redirect to login page
 middlewareObj.isLoggedIn = function(req, res, next){
     if(req.isAuthenticated()){
         return next();
